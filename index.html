@@ -3,34 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My First Website</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        p {
-            line-height: 1.6;
-            color: #666;
-        }
-    </style>
+    <title>Daily Sentences</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <p>hmmmmmmm mmmm mmmmmmm</p>
+        <header>
+            <h1>Daily Sentence</h1>
+            <p class="date" id="current-date"></p>
+        </header>
+        
+        <main>
+            <div class="sentence-card">
+                <p class="sentence" id="daily-sentence">Loading today's sentence...</p>
+            </div>
+            
+            <div class="info">
+                <p>Come back tomorrow for a new sentence!</p>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 Daily Sentences</p>
+        </footer>
     </div>
+
+    <script>
+        // Array of sentences that will rotate daily
+        const sentences = [
+            "The best time to plant a tree was 20 years ago. The second best time is now.",
+            "Life is what happens to you while you're busy making other plans.",
+            "The only way to do great work is to love what you do.",
+            "In the middle of difficulty lies opportunity.",
+            "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+            "The future belongs to those who believe in the beauty of their dreams.",
+            "It is during our darkest moments that we must focus to see the light.",
+            "Don't watch the clock; do what it does. Keep going.",
+            "The only impossible journey is the one you never begin.",
+            "Happiness is not something ready made. It comes from your own actions.",
+            "The way to get started is to quit talking and begin doing.",
+            "Innovation distinguishes between a leader and a follower.",
+            "Your limitation—it's only your imagination.",
+            "Push yourself, because no one else is going to do it for you.",
+            "Great things never come from comfort zones.",
+            "Dream it. Wish it. Do it.",
+            "Success doesn't just find you. You have to go out and get it.",
+            "The harder you work for something, the greater you'll feel when you achieve it.",
+            "Dream bigger. Do bigger.",
+            "Don't stop when you're tired. Stop when you're done.",
+            "Wake up with determination. Go to bed with satisfaction.",
+            "Do something today that your future self will thank you for.",
+            "Little things make big days.",
+            "It's going to be hard, but hard does not mean impossible.",
+            "Don't wait for opportunity. Create it.",
+            "Sometimes we're tested not to show our weaknesses, but to discover our strengths.",
+            "The key to success is to focus on goals, not obstacles.",
+            "Dream it. Believe it. Build it.",
+            "What lies behind us and what lies before us are tiny matters compared to what lies within us.",
+            "The only person you are destined to become is the person you decide to be.",
+            "Believe you can and you're halfway there."
+        ];
+
+        // Function to get sentence based on day of year
+        function getDailySentence() {
+            const now = new Date();
+            const start = new Date(now.getFullYear(), 0, 0);
+            const diff = now - start;
+            const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
+            
+            // Use day of year to pick sentence (cycles through array)
+            const sentenceIndex = dayOfYear % sentences.length;
+            return sentences[sentenceIndex];
+        }
+
+        // Function to format date
+        function formatDate() {
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            return new Date().toLocaleDateString('en-US', options);
+        }
+
+        // Initialize the page
+        function init() {
+            document.getElementById('current-date').textContent = formatDate();
+            document.getElementById('daily-sentence').textContent = getDailySentence();
+        }
+
+        // Run when page loads
+        window.addEventListener('load', init);
+    </script>
 </body>
 </html>
