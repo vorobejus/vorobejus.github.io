@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 3 - Underwater Serenity</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Trebuchet MS', sans-serif;
+            background: linear-gradient(180deg, #1e3c72 0%, #2a5298 50%, #74b9ff 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: float-up 8s infinite linear;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px;
+        }
+
+        .content {
+            text-align: center;
+            color: white;
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: gentle-sway 6s ease-in-out infinite;
+        }
+
+        @keyframes gentle-sway {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-5px) rotate(0.5deg); }
+            66% { transform: translateY(5px) rotate(-0.5deg); }
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(116, 185, 255, 0.6);
+            animation: wave-text 4s ease-in-out infinite;
+        }
+
+        @keyframes wave-text {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            color: #a8e6cf;
+        }
+
+        .ocean-quote {
+            font-size: 1.1em;
+            font-style: italic;
+            margin: 30px 0;
+            padding: 25px;
+            background: rgba(168, 230, 207, 0.1);
+            border-radius: 15px;
+            border-left: 4px solid #a8e6cf;
+            color: #e8f4f8;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .fish {
+            position: fixed;
+            font-size: 2em;
+            animation: swim 15s infinite linear;
+            z-index: 5;
+        }
+
+        .fish1 {
+            top: 20%;
+            animation-delay: 0s;
+        }
+
+        .fish2 {
+            top: 60%;
+            animation-delay: -7s;
+        }
+
+        .fish3 {
+            top: 80%;
+            animation-delay: -12s;
+        }
+
+        @keyframes swim {
+            0% {
+                left: -100px;
+                transform: scaleX(1);
+            }
+            45% {
+                left: 50%;
+                transform: scaleX(1);
+            }
+            50% {
+                left: 50%;
+                transform: scaleX(-1);
+            }
+            100% {
+                left: calc(100% + 100px);
+                transform: scaleX(-1);
+            }
+        }
+
+        .seaweed {
+            position: fixed;
+            bottom: 0;
+            width: 20px;
+            height: 200px;
+            background: linear-gradient(to top, #27ae60, #2ecc71);
+            border-radius: 10px 10px 0 0;
+            animation: sway 4s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .seaweed1 { left: 10%; animation-delay: 0s; }
+        .seaweed2 { left: 30%; animation-delay: 1s; height: 150px; }
+        .seaweed3 { right: 20%; animation-delay: 2s; height: 180px; }
+        .seaweed4 { right: 5%; animation-delay: 0.5s; height: 120px; }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(3deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bubbles"></div>
+    <div class="seaweed seaweed1"></div>
+    <div class="seaweed seaweed2"></div>
+    <div class="seaweed seaweed3"></div>
+    <div class="seaweed seaweed4"></div>
+    
+    <div class="fish fish1">🐠</div>
+    <div class="fish fish2">🐟</div>
+    <div class="fish fish3">🐡</div>
+    
+    <a href="index.html" class="back-link">← Surface</a>
+    
+    <div class="container">
+        <div class="content">
+            <h1>Day 3</h1>
+            <p class="subtitle">Depths of Tranquility</p>
+            
+            <div class="ocean-quote">
+                "The ocean stirs the heart, inspires the imagination, and brings eternal joy to the soul."
+            </div>
+            
+            <p>Dive deep into serenity. Here, beneath the gentle waves, time moves differently. Let the rhythm of the tide wash away your worries and fill your spirit with the boundless peace of the deep blue.</p>
+        </div>
+    </div>
+
+    <script>
+        // Create floating bubbles
+        function createBubbles() {
+            const bubblesContainer = document.querySelector('.bubbles');
+            
+            setInterval(() => {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                
+                const size = Math.random() * 60 + 10;
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                bubble.style.left = Math.random() * 100 + '%';
+                bubble.style.animationDuration = (Math.random() * 6 + 4) + 's';
+                bubble.style.animationDelay = Math.random() * 2 + 's';
+                
+                bubblesContainer.appendChild(bubble);
+                
+                // Remove bubble after animation
+                setTimeout(() => {
+                    bubble.remove();
+                }, 10000);
+            }, 300);
+        }
+
+        document.addEventListener('DOMContentLoaded', createBubbles);
+    </script>
+</body>
+</html>
