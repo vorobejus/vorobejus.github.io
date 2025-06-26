@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 2 - Neon Cyberpunk</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #00ff41;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 10s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px;
+        }
+
+        .content {
+            text-align: center;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ff41;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+            animation: pulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 30px rgba(0, 255, 65, 0.3); }
+            100% { box-shadow: 0 0 50px rgba(0, 255, 65, 0.6); }
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px #00ff41;
+            animation: glitch 3s ease-in-out infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            10% { transform: translate(-2px, 2px); color: #ff0080; }
+            20% { transform: translate(2px, -2px); color: #0080ff; }
+            30% { transform: translate(-2px, -2px); color: #00ff41; }
+        }
+
+        .terminal {
+            background: #000;
+            border: 1px solid #00ff41;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+            font-size: 1.1em;
+        }
+
+        .terminal-line {
+            margin: 5px 0;
+            animation: typewriter 3s steps(30) infinite;
+        }
+
+        @keyframes typewriter {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        .cursor {
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: #00ff41;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid #00ff41;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.8);
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+
+        .back-link:hover {
+            background: rgba(0, 255, 65, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+        }
+
+        .neon-text {
+            color: #ff0080;
+            text-shadow: 0 0 10px #ff0080;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid"></div>
+    
+    <a href="index.html" class="back-link">← BACK_TO_PORTAL</a>
+    
+    <div class="container">
+        <div class="content">
+            <h1>DAY_02.EXE</h1>
+            
+            <div class="terminal">
+                <div class="terminal-line">> Initializing Day 2 Protocol...</div>
+                <div class="terminal-line">> Status: <span class="neon-text">CONNECTED</span></div>
+                <div class="terminal-line">> User authenticated successfully</div>
+                <div class="terminal-line">> Loading cyberpunk.interface<span class="cursor">_</span></div>
+            </div>
+            
+            <p>Welcome to the digital frontier. In this neon-soaked reality, data flows like electric rivers through the silicon veins of tomorrow. Today, you are not just a user—you are a <span class="neon-text">digital pioneer</span>.</p>
+            
+            <div class="terminal">
+                <div class="terminal-line">> MESSAGE_OF_THE_DAY:</div>
+                <div class="terminal-line">> "The future is not some place we are going,</div>
+                <div class="terminal-line">> but one we are creating."<span class="cursor">_</span></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
