@@ -3,28 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Sentences</title>
+    <title>Daily Sentences - Login Required</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <!-- Login Screen -->
+    <div class="login-container" id="login-screen">
+        <div class="login-card">
+            <h1>🔐 Access Required</h1>
+            <p>Please enter the password to view daily sentences</p>
+            <form id="login-form">
+                <input type="password" id="password-input" placeholder="Enter password" required>
+                <button type="submit">Enter</button>
+            </form>
+            <p class="error-message" id="error-message"></p>
+        </div>
+    </div>
+
+    <!-- Main Content (hidden initially) -->
+    <div class="container" id="main-content" style="display: none;">
         <header>
-            <h1>Elfui</h1>
+            <h1>Daily Sentence</h1>
             <p class="date" id="current-date"></p>
+            <button class="logout-btn" id="logout-btn">Logout</button>
         </header>
         
         <main>
             <div class="sentence-card">
                 <p class="sentence" id="daily-sentence">Loading today's sentence...</p>
             </div>
+            
+            <div class="info">
+                <p>Come back tomorrow for a new sentence!</p>
+            </div>
         </main>
         
         <footer>
-            <p>Nuo shreko karolio</p>
+            <p>&copy; 2025 Daily Sentences</p>
         </footer>
     </div>
 
     <script>
+        // Configuration
+        const PASSWORD = "dailyquote2025"; // Change this to your desired password
+        const SESSION_KEY = "daily_sentences_auth";
+
         // Array of sentences that will rotate daily
         const sentences = [
             "The best time to plant a tree was 20 years ago. The second best time is now.",
@@ -60,6 +83,52 @@
             "Believe you can and you're halfway there."
         ];
 
+        // Authentication functions
+        function checkAuth() {
+            const authData = sessionStorage.getItem(SESSION_KEY);
+            if (authData) {
+                const { timestamp, authenticated } = JSON.parse(authData);
+                const now = new Date().getTime();
+                const hoursPassed = (now - timestamp) / (1000 * 60 * 60);
+                
+                // Session expires after 24 hours
+                if (authenticated && hoursPassed < 24) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function authenticate(password) {
+            if (password === PASSWORD) {
+                const authData = {
+                    authenticated: true,
+                    timestamp: new Date().getTime()
+                };
+                sessionStorage.setItem(SESSION_KEY, JSON.stringify(authData));
+                return true;
+            }
+            return false;
+        }
+
+        function logout() {
+            sessionStorage.removeItem(SESSION_KEY);
+            showLoginScreen();
+        }
+
+        function showMainContent() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            initializeDailySentence();
+        }
+
+        function showLoginScreen() {
+            document.getElementById('login-screen').style.display = 'flex';
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('password-input').value = '';
+            document.getElementById('error-message').textContent = '';
+        }
+
         // Function to get sentence based on day of year
         function getDailySentence() {
             const now = new Date();
@@ -83,14 +152,49 @@
             return new Date().toLocaleDateString('en-US', options);
         }
 
-        // Initialize the page
-        function init() {
+        // Initialize the main content
+        function initializeDailySentence() {
             document.getElementById('current-date').textContent = formatDate();
             document.getElementById('daily-sentence').textContent = getDailySentence();
         }
 
-        // Run when page loads
-        window.addEventListener('load', init);
+        // Event listeners
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('password-input').value;
+            
+            if (authenticate(password)) {
+                showMainContent();
+            } else {
+                document.getElementById('error-message').textContent = 'Incorrect password. Please try again.';
+                document.getElementById('password-input').value = '';
+                
+                // Add shake animation to login card
+                const loginCard = document.querySelector('.login-card');
+                loginCard.style.animation = 'shake 0.5s ease-in-out';
+                setTimeout(() => {
+                    loginCard.style.animation = '';
+                }, 500);
+            }
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', logout);
+
+        // Initialize the page
+        window.addEventListener('load', function() {
+            if (checkAuth()) {
+                showMainContent();
+            } else {
+                showLoginScreen();
+            }
+        });
+
+        // Auto-logout when tab becomes visible after long period
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && !checkAuth()) {
+                logout();
+            }
+        });
     </script>
 </body>
 </html>
