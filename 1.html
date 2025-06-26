@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 1 - Minimalist Dawn</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(to bottom, #ffeaa7, #fab1a0, #e17055);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: sunrise 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes sunrise {
+            0% { background: linear-gradient(to bottom, #2d3436, #636e72, #fab1a0); }
+            100% { background: linear-gradient(to bottom, #ffeaa7, #fab1a0, #e17055); }
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            max-width: 600px;
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3); }
+            100% { text-shadow: 2px 2px 20px rgba(255, 255, 255, 0.5); }
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .quote {
+            font-size: 1.2em;
+            font-style: italic;
+            margin: 40px 0;
+            padding: 20px;
+            border-left: 4px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 0 10px 10px 0;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .sun {
+            position: fixed;
+            top: 10%;
+            right: 10%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #f39c12, #e74c3c);
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(243, 156, 18, 0.5);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← Back to Portal</a>
+    
+    <div class="sun"></div>
+    
+    <div class="container">
+        <h1>Day 1</h1>
+        <p class="subtitle">The Dawn of New Beginnings</p>
+        
+        <div class="quote">
+            "Every sunrise is an invitation to brighten someone's day."
+        </div>
+        
+        <p>Welcome to your first day of this journey. Like the gentle sunrise that paints the sky in warm hues, today marks the beginning of something beautiful and new.</p>
+    </div>
+</body>
+</html>
